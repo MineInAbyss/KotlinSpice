@@ -24,11 +24,7 @@ repositories {
     mavenCentral()
     jcenter()
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-
-    maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
-    }
+    maven { url "https://minecraft.curseforge.com/api/maven/" }
 }
 
 dependencyUpdates.gradleReleaseChannel = "current"
