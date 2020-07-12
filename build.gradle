@@ -57,7 +57,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/MineInAbyss/KotlinSpice/")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") ?: System.getenv("PASSWORD")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }
