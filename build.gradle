@@ -1,10 +1,10 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id 'com.github.johnrengelman.shadow' version '6.0.0'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
     id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
     id 'maven-publish'
-    id "com.github.ben-manes.versions" version "0.29.0"
+    id "com.github.ben-manes.versions" version "0.33.0"
     id "com.wynprice.cursemaven" version "2.1.5"
     id 'io.github.0ffz.github-packages' version '1.0.5'
 }
@@ -36,13 +36,13 @@ dependencies {
     yum "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     yum "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
-    yum "org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.0-RC" // JVM dependency
-    yum "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.3.9"
+    yum "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1" // JVM dependency
+    yum "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.0"
 
     yum "org.nield:kotlin-statistics:1.2.1"
-    yum "com.charleskorn.kaml:kaml:0.23.0"
-    yum "org.jetbrains.exposed:exposed-dao:0.27.1"
-    yum "org.jetbrains.exposed:exposed-jdbc:0.27.1"
+    yum "com.charleskorn.kaml:kaml:0.25.0"
+    yum "org.jetbrains.exposed:exposed-dao:0.28.1"
+    yum "org.jetbrains.exposed:exposed-jdbc:0.28.1"
     yum "org.xerial:sqlite-jdbc:3.32.3.2"
 }
 
