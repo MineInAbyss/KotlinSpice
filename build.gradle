@@ -4,7 +4,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '6.1.0'
     id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
     id 'maven-publish'
-    id "com.github.ben-manes.versions" version "0.33.0"
+    id "com.github.ben-manes.versions" version "0.36.0"
     id "com.wynprice.cursemaven" version "2.1.5"
     id 'io.github.0ffz.github-packages' version '1.0.5'
 }
@@ -26,6 +26,7 @@ repositories {
     jcenter()
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url "https://minecraft.curseforge.com/api/maven/" }
+    maven { url 'http://nexus.okkero.com/repository/maven-releases/' }
 }
 
 dependencyUpdates.gradleReleaseChannel = "current"
@@ -37,13 +38,15 @@ dependencies {
     yum "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
     yum "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1" // JVM dependency
-    yum "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.0"
+    yum "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.1"
 
     yum "org.nield:kotlin-statistics:1.2.1"
-    yum "com.charleskorn.kaml:kaml:0.25.0"
+    yum "com.charleskorn.kaml:kaml:0.26.0"
     yum "org.jetbrains.exposed:exposed-dao:0.28.1"
     yum "org.jetbrains.exposed:exposed-jdbc:0.28.1"
     yum "org.xerial:sqlite-jdbc:3.32.3.2"
+
+    yum "com.okkero.skedule:skedule:1.2.6"
 }
 
 processResources {
