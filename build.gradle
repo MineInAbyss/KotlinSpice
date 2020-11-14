@@ -1,60 +1,53 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 plugins {
-    id 'com.github.johnrengelman.shadow' version '6.1.0'
-    id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
+    id 'java-platform'
     id 'maven-publish'
     id "com.github.ben-manes.versions" version "0.36.0"
     id "com.wynprice.cursemaven" version "2.1.5"
     id 'io.github.0ffz.github-packages' version '1.0.5'
 }
 
-group 'org.cultofclang.minecraft'
-version kotlinVersion
+allprojects {
+    group 'com.mineinabyss'
+    version kotlinVersion
 
-java {
-    sourceCompatibility(JavaVersion.VERSION_1_8)
-    withSourcesJar()
-}
+    if (System.getenv("GITHUB_RUN_NUMBER") != null)
+        version += "-" + System.getenv("GITHUB_RUN_NUMBER")
+    else version += "-DEV"
 
-if (System.getenv("GITHUB_RUN_NUMBER") != null)
-    version += "-" + System.getenv("GITHUB_RUN_NUMBER")
-else version += "-DEV"
-
-repositories {
-    mavenCentral()
-    jcenter()
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-    maven { url "https://minecraft.curseforge.com/api/maven/" }
-    maven { url 'http://nexus.okkero.com/repository/maven-releases/' }
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+        maven { url "https://minecraft.curseforge.com/api/maven/" }
+        maven { url 'http://nexus.okkero.com/repository/maven-releases/' }
+    }
 }
 
 dependencyUpdates.gradleReleaseChannel = "current"
 
+javaPlatform {
+    allowDependencies()
+}
+
 dependencies {
-    compileOnly "org.spigotmc:spigot-api:$server_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
-    yum "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    yum "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+    api "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+    api "com.charleskorn.kaml:kaml:0.26.0"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.1"
 
-    yum "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1" // JVM dependency
-    yum "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.1"
+    constraints {
+        //remember to add these to the spigot plugin's build.gradle as well
+        api "com.okkero.skedule:skedule:1.2.6"
 
-    yum "org.nield:kotlin-statistics:1.2.1"
-    yum "com.charleskorn.kaml:kaml:0.26.0"
-    yum "org.jetbrains.exposed:exposed-dao:0.28.1"
-    yum "org.jetbrains.exposed:exposed-jdbc:0.28.1"
-    yum "org.xerial:sqlite-jdbc:3.32.3.2"
+        api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:1.0.1"
 
-    yum "com.okkero.skedule:skedule:1.2.6"
-}
-
-processResources {
-    filter ReplaceTokens, tokens: [version: version]
-}
-
-shadowJar {
-    mergeServiceFiles()
+        api "org.nield:kotlin-statistics:1.2.1"
+        api "org.jetbrains.exposed:exposed-dao:0.28.1"
+        api "org.jetbrains.exposed:exposed-jdbc:0.28.1"
+        api "org.xerial:sqlite-jdbc:3.32.3.2"
+    }
 }
 
 publishing {
@@ -63,26 +56,7 @@ publishing {
     }
     publications {
         maven(MavenPublication) {
-            from components.java
+            from components.javaPlatform
         }
     }
 }
-
-if (project.hasProperty("plugin_path") && plugin_path) {
-    task copyJar(type: Copy) {
-        from shadowJar
-        into plugin_path
-    }
-    shadowJar.finalizedBy(copyJar)
-    build.dependsOn copyJar
-}
-
-void yum(String s) {
-    dependencies.api(s)
-    //i want these to be system, but this make the pom be runtime :(
-    // but this is hacky anyhow
-    // dependencies.shadow(s)
-}
-
-compileKotlin { kotlinOptions.jvmTarget = "1.8" }
-compileTestKotlin { kotlinOptions.jvmTarget = "1.8" }

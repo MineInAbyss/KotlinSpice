@@ -1,6 +1,0 @@
-name: KotlinSpice
-main: org.cultofclang.minecraft.kotlinspice.Plugin
-version: @version@
-load: STARTUP
-api-version: '1.16'
-provides: ["KotlinSupport"]
