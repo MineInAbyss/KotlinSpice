@@ -16,7 +16,7 @@ dependencies {
     api platform(project(':'))
 
     //TODO figure out if we can automatically add these dependencies from constraint
-    api "com.okkero.skedule:skedule"
+    api "com.github.okkero:skedule"
 
     api "org.jetbrains.kotlinx:kotlinx-serialization-cbor"
 

@@ -3,7 +3,6 @@ plugins {
     id 'maven-publish'
     id "com.github.ben-manes.versions" version "0.36.0"
     id "com.wynprice.cursemaven" version "2.1.5"
-    id 'io.github.0ffz.github-packages' version '1.2.0'
 }
 
 allprojects {
@@ -17,9 +16,9 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+        maven { url 'https://jitpack.io' }
         maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
         maven { url "https://minecraft.curseforge.com/api/maven/" }
-        maven { url 'http://nexus.okkero.com/repository/maven-releases/' }
     }
 }
 
@@ -42,7 +41,7 @@ dependencies {
         api "de.erethon:headlib:3.0.6"
 
         //remember to add these to the spigot plugin's build.gradle as well
-        api "com.okkero.skedule:skedule:1.2.6"
+        api "com.github.okkero:skedule:1.2.6"
 
         api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:1.1.0"
 
@@ -55,7 +54,13 @@ dependencies {
 
 publishing {
     repositories {
-        maven githubPackagePublish.invoke("MineInAbyss/KotlinSpice")
+        maven {
+            url = "https://repo.mineinabyss.com/releases"
+            credentials {
+                username = findProperty('mineinabyssMavenUsername')
+                password = findProperty('mineinabyssMavenPassword')
+            }
+        }
     }
     publications {
         maven(MavenPublication) {
