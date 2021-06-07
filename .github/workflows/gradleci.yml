@@ -30,3 +30,13 @@ jobs:
         with:
           name: build
           path: spigot/build/libs
+
+      - name: Create GitHub Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: latest
+          files: |
+            spigot/build/libs/*
+            !**-sources**
