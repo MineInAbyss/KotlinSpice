@@ -34,6 +34,7 @@ shadowJar {
     archiveBaseName.set("KotlinSpice")
     mergeServiceFiles()
 }
+build.dependsOn shadowJar
 
 
 if (project.hasProperty("plugin_path") && plugin_path) {

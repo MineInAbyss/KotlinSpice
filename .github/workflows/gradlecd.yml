@@ -27,3 +27,19 @@ jobs:
 
       - name: Run gradle publish
         run: gradle publish -PmineinabyssMavenUsername=${{ secrets.MAVEN_PUBLISH_USERNAME }} -PmineinabyssMavenPassword=${{ secrets.MAVEN_PUBLISH_PASSWORD }}
+
+      - name: Get version from gradle
+        shell: bash
+        id: extract_version
+        run: |
+          version=`./gradlew properties --no-daemon --console=plain -q | grep "^version:" | awk '{printf $2}'`
+          echo "::set-output name=version::$version"
+
+      - name: Create GitHub Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: v${{ steps.extract_version.outputs.version }}
+          files: |
+            spigot/build/libs/*-all.jar
