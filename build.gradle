@@ -19,6 +19,7 @@ allprojects {
         maven { url 'https://jitpack.io' }
         maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
         maven { url "https://minecraft.curseforge.com/api/maven/" }
+        maven { url "https://erethon.de/repo/" }
     }
 }
 

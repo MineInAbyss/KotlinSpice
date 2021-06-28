@@ -17,6 +17,7 @@ dependencies {
 
     //TODO figure out if we can automatically add these dependencies from constraint
     api "com.github.okkero:skedule"
+    api "de.erethon:headlib:3.0.6"
 
     api "org.jetbrains.kotlinx:kotlinx-serialization-cbor"
 
