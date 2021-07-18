@@ -1,9 +1,16 @@
+import com.mineinabyss.sharedSetup
+
 val kotlinVersion: String by project
 
 plugins {
     `java-platform`
     `maven-publish`
     id("com.github.ben-manes.versions") version "0.39.0"
+    id("com.mineinabyss.shared-gradle") version "0.0.6"
+}
+
+sharedSetup {
+    addGithubRunNumber()
 }
 
 repositories {
