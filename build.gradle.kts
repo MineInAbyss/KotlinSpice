@@ -9,6 +9,8 @@ plugins {
     id("com.mineinabyss.shared-gradle") version "0.0.6"
 }
 
+version = kotlinVersion
+
 sharedSetup {
     addGithubRunNumber()
 }
