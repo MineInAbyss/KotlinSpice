@@ -25,8 +25,8 @@ jobs:
       - name: Build
         run: gradle build
 
-      - name: Upload build
-        uses: actions/upload-artifact@v1
-        with:
-          name: build
-          path: spigot/build/libs
+#      - name: Upload build
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: build
+#          path: spigot/build/libs
